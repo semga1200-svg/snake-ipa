@@ -1,12 +1,13 @@
 import SwiftUI
 
 enum AppTab: Int, CaseIterable, Identifiable {
-    case snake, info, tools, simulations
+    case shooter, snake, info, tools, simulations
 
     var id: Int { rawValue }
 
     var title: String {
         switch self {
+        case .shooter: return "Шутер"
         case .snake: return "Змейка"
         case .info: return "Инфо"
         case .tools: return "Инструм."
@@ -16,6 +17,7 @@ enum AppTab: Int, CaseIterable, Identifiable {
 
     var icon: String {
         switch self {
+        case .shooter: return "scope"
         case .snake: return "gamecontroller.fill"
         case .info: return "iphone"
         case .tools: return "wrench.and.screwdriver.fill"
@@ -25,8 +27,8 @@ enum AppTab: Int, CaseIterable, Identifiable {
 }
 
 struct RootView: View {
-    @State private var tab: AppTab = .snake
-    @State private var previousTab: AppTab = .snake
+    @State private var tab: AppTab = .shooter
+    @State private var previousTab: AppTab = .shooter
     @Namespace private var ns
 
     var body: some View {
@@ -49,6 +51,7 @@ struct RootView: View {
     private var content: some View {
         ZStack {
             switch tab {
+            case .shooter: ShooterView().transition(transition)
             case .snake: SnakeScreen().transition(transition)
             case .info: InfoView().transition(transition)
             case .tools: ToolsView().transition(transition)
@@ -110,6 +113,6 @@ struct RootView: View {
                              lineWidth: 1)
         )
         .shadow(color: .black.opacity(0.4), radius: 16, y: 8)
-        .padding(.horizontal, 14)
+        .padding(.horizontal, 8)
     }
 }
