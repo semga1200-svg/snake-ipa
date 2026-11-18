@@ -15,7 +15,7 @@ enum Synth {
         u32(16); u16(1); u16(1); u32(UInt32(sr)); u32(UInt32(sr * 2)); u16(2); u16(16)
         str("data"); u32(UInt32(n * 2))
         for s in samples {
-            let clamped = max(-1.0, min(1.0, Double(s)))
+            let clamped = Float(max(-1.0, min(1.0, Double(s))))
             var v = Int16(clamped * 32000)
             withUnsafeBytes(of: v.littleEndian) { d.append(contentsOf: $0) }
         }

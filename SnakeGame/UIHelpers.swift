@@ -141,5 +141,6 @@ func deviceMachineIdentifier() -> String {
 }
 
 func randomHex(_ count: Int) -> String {
-    (0..<count).map { _ in "0123456789ABCDEF".randomElement()! }.joined()
+    let alphabet = Array("0123456789ABCDEF")
+    return String((0..<count).map { _ in alphabet.randomElement()! })
 }
