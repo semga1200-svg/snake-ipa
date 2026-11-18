@@ -114,5 +114,6 @@ struct RootView: View {
         )
         .shadow(color: .black.opacity(0.4), radius: 16, y: 8)
         .padding(.horizontal, 8)
+        .padding(.bottom, 4)
     }
 }
