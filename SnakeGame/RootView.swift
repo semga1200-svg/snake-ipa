@@ -1,23 +1,25 @@
 import SwiftUI
 
 enum AppTab: Int, CaseIterable, Identifiable {
-    case snake, jailbreak, downgrade
+    case snake, info, tools, simulations
 
     var id: Int { rawValue }
 
     var title: String {
         switch self {
         case .snake: return "Змейка"
-        case .jailbreak: return "Джейл"
-        case .downgrade: return "Откат"
+        case .info: return "Инфо"
+        case .tools: return "Инструм."
+        case .simulations: return "Симуляц."
         }
     }
 
     var icon: String {
         switch self {
         case .snake: return "gamecontroller.fill"
-        case .jailbreak: return "terminal.fill"
-        case .downgrade: return "arrow.uturn.down.circle.fill"
+        case .info: return "iphone"
+        case .tools: return "wrench.and.screwdriver.fill"
+        case .simulations: return "sparkles.rectangle.stack"
         }
     }
 }
@@ -48,8 +50,9 @@ struct RootView: View {
         ZStack {
             switch tab {
             case .snake: SnakeScreen().transition(transition)
-            case .jailbreak: JailbreakScreen().transition(transition)
-            case .downgrade: DowngradeScreen().transition(transition)
+            case .info: InfoView().transition(transition)
+            case .tools: ToolsView().transition(transition)
+            case .simulations: SimulationHubView().transition(transition)
             }
         }
         .animation(.spring(response: 0.42, dampingFraction: 0.86), value: tab)
@@ -64,7 +67,7 @@ struct RootView: View {
     }
 
     private var tabBar: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: 2) {
             ForEach(AppTab.allCases) { item in
                 Button {
                     guard item != tab else { return }
@@ -75,15 +78,17 @@ struct RootView: View {
                         tab = item
                     }
                 } label: {
-                    VStack(spacing: 3) {
+                    VStack(spacing: 2) {
                         Image(systemName: item.icon)
-                            .font(.system(size: 20, weight: .semibold))
+                            .font(.system(size: 18, weight: .semibold))
                         Text(item.title)
-                            .font(.caption2.weight(.semibold))
+                            .font(.system(size: 10, weight: .semibold))
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.8)
                     }
                     .foregroundColor(tab == item ? .white : .white.opacity(0.5))
                     .frame(maxWidth: .infinity)
-                    .padding(.vertical, 10)
+                    .padding(.vertical, 9)
                     .background {
                         if tab == item {
                             Capsule()
@@ -97,7 +102,7 @@ struct RootView: View {
                 .buttonStyle(.plain)
             }
         }
-        .padding(6)
+        .padding(5)
         .background(Capsule().fill(.ultraThinMaterial))
         .overlay(
             Capsule().stroke(LinearGradient(gradient: Gradient(colors: [.white.opacity(0.4), .white.opacity(0.08)]),
@@ -105,6 +110,6 @@ struct RootView: View {
                              lineWidth: 1)
         )
         .shadow(color: .black.opacity(0.4), radius: 16, y: 8)
-        .padding(.horizontal, 26)
+        .padding(.horizontal, 14)
     }
 }
