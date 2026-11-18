@@ -28,7 +28,7 @@ struct DowngradeScreen: View {
     @State private var apnonce = ""
     @State private var sha = ""
     @State private var flashSeconds = 479
-    @State private var task: Task<Void, Error>?
+    @State private var task: Task<Void, Never>?
     @State private var appeared = false
     @Namespace private var ns
 

@@ -47,7 +47,7 @@ enum Synth {
             let white = Float.random(in: -1...1)
             last = 0.7 * last + 0.3 * white
             let env = sin(Double.pi * t / dur)
-            out.append(last * vol * Float(env))
+            out.append(last * Float(vol) * Float(env))
         }
         return out
     }

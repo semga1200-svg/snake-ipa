@@ -16,7 +16,7 @@ struct JailbreakScreen: View {
     @State private var phase: Phase = .idle
     @State private var lines: [LogLine] = []
     @State private var progress: Double = 0
-    @State private var task: Task<Void, Error>?
+    @State private var task: Task<Void, Never>?
     @State private var ecid = ""
     @State private var deviceLine = ""
     @State private var appeared = false
